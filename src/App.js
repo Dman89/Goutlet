@@ -64,7 +64,7 @@ class App extends Component {
           {...this.state}
           value={label}
           onChange={this.updateTheItem.bind(this)}
-          key={label}
+          key={label + '_' + index}
           onClick={this.changeMode.bind(this)}
           index={index}
         />

@@ -32,7 +32,7 @@ class AddIngredient extends React.Component {
 
   renderIngredientDetails() {
     const { product, status } = this.state;
-    if (status == 1) {
+    if (status === 1) {
       return (
         <div className="add-ingredient-modal">
           <h2>{product.product_name ? product.product_name : 'Nope?'}</h2>
@@ -44,8 +44,6 @@ class AddIngredient extends React.Component {
   }
 
   render() {
-    console.log('dc13:', this.state.product);
-    const { product } = this.state;
     return (
       <div>
         {this.renderIngredientDetails.call(this)}
