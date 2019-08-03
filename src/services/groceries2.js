@@ -1,8 +1,8 @@
 const password = 'applesarehealthy';
 const username = 'RESTUser';
 function getGroceryList(body) {
-  //return fetch(`https://ven02153.service-now.com/api/nuvo/fuel_planner/groceries/list`, {
-  return fetch(`/groceries`, {
+  return fetch(`https://ven02153.service-now.com/api/nuvo/fuel_planner/groceries/list`, {
+  //return fetch(`/groceries`, {
     method:'POST',
     body: JSON.stringify(body),
     headers: {

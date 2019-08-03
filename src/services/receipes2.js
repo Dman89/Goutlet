@@ -1,8 +1,8 @@
 const password = 'applesarehealthy';
 const username = 'RESTUser';
 function getAllReceipes() {
-  //return fetch(`https://ven02153.service-now.com/api/nuvo/fuel_planner/receipes/all`, {
-  return fetch(`/receipes`, {
+  return fetch(`https://ven02153.service-now.com/api/nuvo/fuel_planner/receipes/all`, {
+  //return fetch(`/receipes`, {
     method:'GET',
     headers: {
       "Access-Control-Allow-Origin": "*",

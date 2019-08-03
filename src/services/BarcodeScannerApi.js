@@ -1,7 +1,7 @@
 import Quagga from 'quagga';
 
 export default (function() {
-  var value;
+  //var value;
   var App = {
     init: function() {
       Quagga.init(this.state, function(err) {
@@ -14,13 +14,13 @@ export default (function() {
       });
     },
     initCameraSelection: function() {
-      var streamLabel = Quagga.CameraAccess.getActiveStreamLabel();
+      //var streamLabel = Quagga.CameraAccess.getActiveStreamLabel();
 
       return Quagga.CameraAccess.enumerateVideoDevices()
         .then(function(devices) {
-          function pruneText(text) {
-            return text.length > 30 ? text.substr(0, 30) : text;
-          }
+          // function pruneText(text) {
+          //   return text.length > 30 ? text.substr(0, 30) : text;
+          // }
           // var $deviceSelection = document.getElementById("deviceSelection");
           // while ($deviceSelection.firstChild) {
           //   $deviceSelection.removeChild($deviceSelection.firstChild);
