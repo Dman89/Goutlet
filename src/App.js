@@ -77,7 +77,7 @@ class App extends Component {
       const ingredients = receipe.relatedRecords.ingredients.records;
       const steps = receipe.relatedRecords.steps.records;
       return (
-        <div key={index} className="Row-Frame">
+        <div key={index} className="Row-Frame mb-3">
           <Receipe {...this.state} receipe={receipe.record} ingredients={ingredients} steps={steps} percent={this.state.percentages[receipe.record.sys_id]} toggleSelected={this.toggleSelected.bind(this)} master={master}/>
         </div>
       );
@@ -96,7 +96,7 @@ class App extends Component {
       //   </div>
       // );
       return (
-        <div key={index} className="Row-Container">
+        <div key={index} className="Row-Container container mt-3">
           <div>{this.renderMore(master, true)}</div>
         </div>
       );
