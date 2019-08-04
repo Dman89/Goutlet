@@ -1,4 +1,5 @@
 import React from 'react';
+const thumbnailPlaceHolder = './imgs/thumbnail.svg';
 class Card extends React.Component {
   componentWillMount() {
       this.propsLogic.call(this, this.props);
@@ -24,7 +25,8 @@ class Card extends React.Component {
         (<div className="mb-2 text-muted card--title-small" key={`${this.state.id}_title_small`}>
             <a className="text-dark" href="#">{this.state.titleSmall || `By Jennifer Lopez`}</a>
         </div>),
-        (<p className="card-text" key={`${this.state.id}_description`}>
+        (this.renderStarSection.call(this)),
+        (<p className="card-text mb-3" key={`${this.state.id}_description`}>
             {this.state.description || `Family receipe that has been passed down for generations.`}
         </p>)
       ];
@@ -33,9 +35,11 @@ class Card extends React.Component {
   renderStarSection() {
       if (this.state.isCardColumn) {
           return (
-            <div className="d-flex justify-content-between align-items-center">
-                <small className="text-muted">9 mins</small>
-                <a href="#" className="text-warning">
+            <div className="d-flex justify-content-between align-items-center mb-2 text-muted" key={`${this.state.id}_star_section`}>
+                <small className="mr-2">Prep Time: <strong>{`${this.state.prepTime || '0 Minutes'}`}</strong></small>
+                <small className="mr-2">Cook Time: <strong>{`${this.state.coockTime || '0 Minutes'}`}</strong></small>
+                <small className="mr-2"><strong>{`${this.state.percentage || '0'}%`}</strong> of items</small>
+                <a href="#" className="text-warning mr-2">
                     <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star-half-alt"></i>
                 </a>
             </div>
@@ -49,33 +53,42 @@ class Card extends React.Component {
       }
   }
 
+  renderSelectedIcon() {
+    let answer = 'far fa-heart ';
+    if (this.state.selected) {
+      answer = 'fas fa-heart selected ';
+    }
+    return <i className={answer + 'fa-2x'}></i>;
+  }
+
   renderPreBody() {
-      const id = this.state.id;
+    const id = this.state.id;
     if (this.state.isCardColumn) {
         return [
             (
-                <div className="card-icon text-danger" key={`${id}_favaorite`}>
-                    <i className="fas fa-heart selected fa-2x"></i>
+                <div className="card-icon text-danger" key={`${id}_favaorite`} onClick={() => this.props.toggleSelected(id)}>
+                    {this.renderSelectedIcon.call(this)}
                 </div>
             ),
             (
-                <img className="card-img-top" key={`${id}_img`} />
+                <img className="card-img-top" key={`${id}_img`} src={`${this.props.image || thumbnailPlaceHolder}`}/>
             )  
         ];
     } else {
         return (
-            <img class="card-img-left" />
+            <img className="card-img-left" />
         );
     }
   }
 
   renderPostBody() {
+    const id = this.state.id;
     if (this.state.isCardColumn) {
         return '';
     } else {
         return (
-            <div class="card-img-right align-self-center ml-3 mr-3 text-danger ">
-               <i class="fas fa-heart selected fa-2x"></i>
+            <div className="card-img-right align-self-center ml-3 mr-3 text-danger" onClick={() => this.props.toggleSelected(id)}>
+                {this.renderSelectedIcon.call(this)}
             </div>
         );
     }
@@ -87,7 +100,6 @@ class Card extends React.Component {
             {this.renderPreBody.call(this)}
             <div className={this.state.cardBodyClassName}>
                 {this.renderMainBodyOfCard.call(this)}
-                {this.renderStarSection.call(this)}
             </div>
             {this.renderPostBody.call(this)}
         </div>

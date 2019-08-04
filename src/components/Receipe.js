@@ -101,9 +101,11 @@ class Receipe extends React.Component {
   }
 
   render() {
-    const { name = {}, percent = '', sys_id } = this.state;
+    const { name = {}, percent = '', sys_id, prepTime, cookTime } = this.state;
+    console.log(this.state);
+    
     return (
-      <Card id={sys_id} title={name.displayValue} type={"column"} />
+      <Card id={sys_id} title={name.displayValue} type={"column"} prepTime={prepTime.displayValue} cookTime={cookTime.displayValue} percentage={percent} selected={this.props.selected[sys_id]} toggleSelected={this.props.toggleSelected}/>
     );
     // return (
     //   <div>
