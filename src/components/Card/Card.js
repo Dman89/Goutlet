@@ -39,18 +39,22 @@ class Card extends React.Component {
                 <small className="mr-2">Prep Time: <strong>{`${this.state.prepTime || '0 Minutes'}`}</strong></small>
                 <small className="mr-2">Cook Time: <strong>{`${this.state.coockTime || '0 Minutes'}`}</strong></small>
                 <small className="mr-2"><strong>{`${this.state.percentage || '0'}%`}</strong> of items</small>
-                <a href="#" className="text-warning mr-2">
-                    <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star-half-alt"></i>
-                </a>
+                {this.renderStars.call(this)}
             </div>
           );
       } else {
-          return (
-            <a href="#" className="text-warning">
-                <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star-half-alt"></i>
-            </a>
-          );
+          return this.renderStars.call(this);
       }
+  }
+
+  renderStars() {
+    return '';
+    /* disabled for now
+    return (
+        <a href="#" className="text-warning">
+            <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star-half-alt"></i>
+        </a>
+    ); */
   }
 
   renderSelectedIcon() {
