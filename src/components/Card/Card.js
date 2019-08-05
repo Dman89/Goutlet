@@ -1,5 +1,6 @@
 import React from 'react';
-const thumbnailPlaceHolder = './imgs/thumbnail.svg';
+import { NavLink } from 'react-router-dom';
+const thumbnailPlaceHolder = '/imgs/thumbnail.svg';
 class Card extends React.Component {
   componentWillMount() {
       this.propsLogic.call(this, this.props);
@@ -20,10 +21,10 @@ class Card extends React.Component {
   renderMainBodyOfCard() {
       return [
         (<h3 className="card--title" key={`${this.state.id}_title`}>
-            <a className="text-dark" href="#">{this.state.title || `Taco Flavored Kisses`}</a>
+            <NavLink className="text-dark" exact to={`/explore/receipe/${this.state.id}`}>{this.state.title || `Taco Flavored Kisses`}</NavLink>
         </h3>),
         (<div className="mb-2 text-muted card--title-small" key={`${this.state.id}_title_small`}>
-            <a className="text-dark" href="#">{this.state.titleSmall || `By Jennifer Lopez`}</a>
+            <NavLink className="text-dark" exact to={`/explore/author/${this.state.id}`}>{this.state.titleSmall || `By Jennifer Lopez`}</NavLink>
         </div>),
         (this.renderStarSection.call(this)),
         (<p className="card-text mb-3" key={`${this.state.id}_description`}>

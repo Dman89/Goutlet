@@ -50,8 +50,6 @@ class Explore extends React.Component {
 
   renderReceipes(receipes = [], master = {}) {
     return receipes.map(function(receipe, index) {
-      const ingredients = receipe.relatedRecords.ingredients.records;
-      const steps = receipe.relatedRecords.steps.records;
       const { name = {}, percent = '', sys_id, prepTime, cookTime } = receipe.record;
 
       return (

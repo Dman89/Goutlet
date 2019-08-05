@@ -92,7 +92,7 @@ class Receipe extends React.Component {
   }
 
   render() {
-    const { name = {}, percent = '', sys_id, prepTime, cookTime } = this.state;
+    const { name = {}, percent = '', sys_id } = this.state;
 
     return (
       <div>

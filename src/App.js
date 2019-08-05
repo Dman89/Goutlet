@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import './App.css';
 import Input from './components/Input';
 import Explore from './components/Views/Explore';
@@ -10,6 +11,19 @@ import { getAllReceipes } from "./services/receipes2";
 
 class App extends Component {
   componentWillMount() {
+
+    const { pathname } = this.props.location;
+    let page = 2;
+    if (pathname === '/pantry') {
+      page = 0;
+    } else if (pathname === '/cookbook') {
+      page = 1;
+    } else if (pathname === '/explore') {
+      page = 2;
+    } else if (pathname === '/planner') {
+      page = 3;
+    }
+
     this.setState({
       item: {
         label: '',
@@ -17,7 +31,7 @@ class App extends Component {
         measurement: '',
       },
       step: 0,
-      page: 2,
+      page: page,
       receipes: [],
       percentages: {},
       editMode: {
@@ -86,24 +100,35 @@ class App extends Component {
 
   renderIcons() {
     var icons = [
-      { title: 'Pantry', icon: 'pantry.svg', urlValue: 0 },
-      { title: 'Cookbook', icon: 'cookbook.svg', urlValue: 1 },
-      { title: 'Search', icon: 'search.svg', urlValue: 2 },
-      { title: 'Planner', icon: 'planner.svg', urlValue: 3 },
+      { title: 'Pantry', icon: 'pantry.svg', urlValue: 0, url: 'pantry' },
+      { title: 'Cookbook', icon: 'cookbook.svg', urlValue: 1, url: 'cookbook' },
+      { title: 'Explore', icon: 'search.svg', urlValue: 2, url: 'explore' },
+      { title: 'Planner', icon: 'planner.svg', urlValue: 3, url: 'planner' },
     ];
 
     return icons.map(function(icon, index) {
       return (
-        <div className="Bottom-Panel-Icons pointer" key={index} onClick={() => this.setPage.call(this, icon.urlValue)}>
+        <NavLink exact activeClassName="active" to={icon.url} className="Bottom-Panel-Icons pointer" key={index}>
           <div className="Bottom-Panel-Icon">
             <img id={icon.title} alt={icon.title} src={'/imgs/' + icon.icon}></img>
           </div>
           <div className="Bottom-Panel-Label">
             <label>{icon.title}</label>
           </div>
-        </div>
+        </NavLink>
       );
-    }.bind(this), this);
+
+      // return (
+      //   <div className="Bottom-Panel-Icons pointer" key={index} onClick={() => this.setPage.call(this, icon.urlValue)}>
+      //     <div className="Bottom-Panel-Icon">
+      //       <img id={icon.title} alt={icon.title} src={'/imgs/' + icon.icon}></img>
+      //     </div>
+      //     <div className="Bottom-Panel-Label">
+      //       <label>{icon.title}</label>
+      //     </div>
+      //   </div>
+      // );
+    }, this);
   }
 
   renderCurrentPageHeader() {
@@ -147,7 +172,7 @@ class App extends Component {
 
   render() {
     return [
-      <div className="application-container">
+      <div className="application-container" key={`application_container`}>
         {this.renderCurrentPageHeader.call(this)}
         <div className="application-frame">
           {this.renderCurrentPage.call(this)}
@@ -158,8 +183,8 @@ class App extends Component {
           </div>
         </div>
       </div>,
-      <BarcodeScanner openCamera={this.openCamera.bind(this)}/>,
-      <div>{this.renderCameraModal.call(this)}</div>
+      <BarcodeScanner openCamera={this.openCamera.bind(this)} key={`barcode_scanner`}/>,
+      <div key={`camera_modal`}>{this.renderCameraModal.call(this)}</div>
     ];
   }
 }
