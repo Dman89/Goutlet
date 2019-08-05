@@ -1,5 +1,4 @@
 import React from 'react';
-import Card from './Card/';
 
 class Receipe extends React.Component {
   componentWillMount() {
@@ -94,23 +93,20 @@ class Receipe extends React.Component {
 
   render() {
     const { name = {}, percent = '', sys_id, prepTime, cookTime } = this.state;
-    
+
     return (
-      <Card id={sys_id} title={name.displayValue} type={"column"} prepTime={prepTime.displayValue} cookTime={cookTime.displayValue} percentage={percent} selected={this.props.selected[sys_id]} toggleSelected={this.props.toggleSelected}/>
+      <div>
+        <h2 onClick={this.toggle.bind(this)}>{name.displayValue}
+          <div>
+            <small>
+              {this.state.master.displayValue} - {percent}%
+            </small>
+          </div>
+        </h2>
+        <div onClick={() => this.props.toggleSelected(sys_id)}>{this.renderSelectedIcon.call(this, sys_id)}</div>
+        {this.renderMore.call(this)}
+      </div>
     );
-    // return (
-    //   <div>
-    //     <h2 onClick={this.toggle.bind(this)}>{name.displayValue}
-    //       <div>
-    //         <small>
-    //           {this.state.master.displayValue} - {percent}%
-    //         </small>
-    //       </div>
-    //     </h2>
-    //     <div onClick={() => this.props.toggleSelected(sys_id)}>{this.renderSelectedIcon.call(this, sys_id)}</div>
-    //     {this.renderMore.call(this)}
-    //   </div>
-    // );
   }
 }
 

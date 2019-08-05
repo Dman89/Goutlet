@@ -1,5 +1,6 @@
 import React from 'react';
 import Receipe from '../../Receipe';
+import Card from '../../Card';
 
 class Explore extends React.Component {
   componentWillMount() {
@@ -11,21 +12,29 @@ class Explore extends React.Component {
   }
 
   propsLogic(props) {
-    this.setState({ ...this.state, ...props });
+    var singlePage = false;
+    this.setState({ ...this.state, ...props, singlePage });
+  }
+
+  renderIfStatement() {
+    if (this.state.singlePage) {
+      const record = {};
+      const ingredients = {};
+      const steps = {};
+      const percent = {};
+      const master = {};
+      return (
+        <div className="col-xs-12">
+          <Receipe className="Row-Frame mb-3" {...this.state} receipe={record} ingredients={ingredients} steps={steps} percent={percent} toggleSelected={this.props.toggleSelected.bind(this)} master={master}/>
+        </div>
+      );
+    } else {
+      return this.renderMasters.call(this, this.state.masters);
+    }
   }
 
   renderMasters(masters = []) {
     return masters.map(function(master, index) {
-      console.log(master)
-      // return (
-      //   <div key={index} className="Row-Container">
-      //     <div className="Row-Title-Container">
-      //       <h2 className="Row-Title" onClick={() => this.toggle(master.sys_id)}>{master.name.displayValue}</h2>
-      //       <p>{master.description.displayValue}</p>
-      //     </div>
-      //     <div>{this.renderMore(master)}</div>
-      //   </div>
-      // );
       if (master.receipes.receipes.length) {
         return this.renderMore(master, true);
       } else {
@@ -43,9 +52,11 @@ class Explore extends React.Component {
     return receipes.map(function(receipe, index) {
       const ingredients = receipe.relatedRecords.ingredients.records;
       const steps = receipe.relatedRecords.steps.records;
+      const { name = {}, percent = '', sys_id, prepTime, cookTime } = receipe.record;
+
       return (
-        <div className="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-          <Receipe key={index} className="Row-Frame mb-3" {...this.state} receipe={receipe.record} ingredients={ingredients} steps={steps} percent={this.state.percentages[receipe.record.sys_id]} toggleSelected={this.props.toggleSelected.bind(this)} master={master}/>
+        <div className="col-xs-12 col-md-6 col-lg-4 col-xl-4" key={`${index}_${sys_id}`}>
+          <Card id={sys_id} title={name.displayValue} type={"column"} prepTime={prepTime.displayValue} cookTime={cookTime.displayValue} percentage={percent} selected={this.props.selected[sys_id]} toggleSelected={this.props.toggleSelected}/>
         </div>
       );
     }, this);
@@ -55,7 +66,7 @@ class Explore extends React.Component {
     return (
         <div className="container-fluid mt-5">
           <div className="row">
-            {this.renderMasters.call(this, this.state.masters)}
+            {this.renderIfStatement.call(this)}
           </div>
         </div>
     );
