@@ -48,7 +48,7 @@ body {
   overflow: auto;
   align-self: flex-start;
   flex-grow: 2;
-  margin: 0px 30px;
+  margin: 0px auto;
   padding-bottom: 60px;
   /* width: 90%;
   width: calc(100% - 60px); */

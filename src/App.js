@@ -77,8 +77,8 @@ class App extends Component {
       const ingredients = receipe.relatedRecords.ingredients.records;
       const steps = receipe.relatedRecords.steps.records;
       return (
-        <div key={index} className="Row-Frame mb-3">
-          <Receipe {...this.state} receipe={receipe.record} ingredients={ingredients} steps={steps} percent={this.state.percentages[receipe.record.sys_id]} toggleSelected={this.toggleSelected.bind(this)} master={master}/>
+        <div className="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+          <Receipe key={index} className="Row-Frame mb-3" {...this.state} receipe={receipe.record} ingredients={ingredients} steps={steps} percent={this.state.percentages[receipe.record.sys_id]} toggleSelected={this.toggleSelected.bind(this)} master={master}/>
         </div>
       );
     }, this);
@@ -86,6 +86,7 @@ class App extends Component {
 
   renderMasters(masters = []) {
     return masters.map(function(master, index) {
+      console.log(master)
       // return (
       //   <div key={index} className="Row-Container">
       //     <div className="Row-Title-Container">
@@ -95,11 +96,11 @@ class App extends Component {
       //     <div>{this.renderMore(master)}</div>
       //   </div>
       // );
-      return (
-        <div key={index} className="Row-Container container mt-3">
-          <div>{this.renderMore(master, true)}</div>
-        </div>
-      );
+      if (master.receipes.receipes.length) {
+        return this.renderMore(master, true);
+      } else {
+        return '';
+      }
     }, this);
   }
 
@@ -116,11 +117,7 @@ class App extends Component {
   }
 
   renderMore(master, override) {
-    var answer = (
-      <div>
-        <div>{this.renderReceipes(master.receipes.receipes, master)}</div>
-      </div>
-    );
+    var answer = this.renderReceipes(master.receipes.receipes, master);
     return !override ? (this.state.showMore[master.sys_id] ? answer : '') : answer;
   }
 
@@ -168,7 +165,13 @@ class App extends Component {
     } else if (page === 1) {
       return <div>1</div>;
     } else if (page === 2) {
-      return <div>{this.renderMasters.call(this, this.state.masters)}</div>;
+      return (
+        <div className="container-fluid mt-5">
+          <div className="row">
+            {this.renderMasters.call(this, this.state.masters)}
+          </div>
+        </div>
+      );
     } else if (page === 3) {
       return <Planner selected={this.state.selected}/>;
     }

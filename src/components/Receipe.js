@@ -92,17 +92,8 @@ class Receipe extends React.Component {
     return this.state.showMore ? answer : '';
   }
 
-  renderSelectedIcon(id) {
-    let answer = 'far fa-heart ';
-    if (this.props.selected[id]) {
-      answer = 'fas fa-heart selected ';
-    }
-    return <i className={answer + 'heart-icon'}></i>;
-  }
-
   render() {
     const { name = {}, percent = '', sys_id, prepTime, cookTime } = this.state;
-    console.log(this.state);
     
     return (
       <Card id={sys_id} title={name.displayValue} type={"column"} prepTime={prepTime.displayValue} cookTime={cookTime.displayValue} percentage={percent} selected={this.props.selected[sys_id]} toggleSelected={this.props.toggleSelected}/>
