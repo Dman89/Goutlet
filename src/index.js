@@ -11,10 +11,10 @@ const routing = (
             <Route exact path="/" component={App} />
             <Route path="/pantry" component={App} />
             <Route path="/cookbook" component={App} />
-            <Route path="/explore" component={App} />
-            <Route path="/explore/receipe/:id" component={App} />
-            <Route path="/explore/author/:id" component={App} />
-            <Route path="/explore/ingredient/:id" component={App} />
+            <Route exact path="/explore" component={App} />
+            <Route exact path="/explore/receipe/:id" component={App} />
+            <Route exact path="/explore/author/:id" component={App} />
+            <Route exact path="/explore/ingredient/:id" component={App} />
             <Route path="/planner" component={App} />
         </div>
     </Router>
