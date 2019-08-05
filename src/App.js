@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Input from './components/Input';
-import Explore from './components/Explore';
+import Explore from './components/Views/Explore';
 import Planner from './components/Planner';
 import Pantry from './components/Pantry';
 import BarcodeScanner from './components/BarcodeScanner';

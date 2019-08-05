@@ -1,5 +1,5 @@
 import React from 'react';
-import Receipe from '../Receipe';
+import Receipe from '../../Receipe';
 
 class Explore extends React.Component {
   componentWillMount() {
