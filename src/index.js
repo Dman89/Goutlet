@@ -7,16 +7,14 @@ import { Route, BrowserRouter as Router } from 'react-router-dom'
 
 const routing = (
     <Router>
-        <div>
-            <Route exact path="/" component={App} />
-            <Route path="/pantry" component={App} />
-            <Route path="/cookbook" component={App} />
-            <Route exact path="/explore" component={App} />
-            <Route exact path="/explore/receipe/:id" component={App} />
-            <Route exact path="/explore/author/:id" component={App} />
-            <Route exact path="/explore/ingredient/:id" component={App} />
-            <Route path="/planner" component={App} />
-        </div>
+        <Route exact path="/" component={App} />
+        <Route path="/pantry" component={App} />
+        <Route path="/cookbook" component={App} />
+        <Route exact path="/explore" component={App} />
+        <Route exact path="/explore/receipe/:id" component={App} />
+        <Route exact path="/explore/author/:id" component={App} />
+        <Route exact path="/explore/ingredient/:id" component={App} />
+        <Route path="/planner" component={App} />
     </Router>
 )
 

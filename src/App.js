@@ -153,7 +153,7 @@ class App extends Component {
     } else if (page === 1) {
       return <div>1</div>;
     } else if (page === 2) {
-      return <Explore {...this.state} toggleSelected={this.toggleSelected}/>;
+      return <Explore {...this.state} toggleSelected={this.toggleSelected.bind(this)}/>;
     } else if (page === 3) {
       return <Planner selected={this.state.selected}/>;
     }
@@ -183,7 +183,6 @@ class App extends Component {
           </div>
         </div>
       </div>,
-      <BarcodeScanner openCamera={this.openCamera.bind(this)} key={`barcode_scanner`}/>,
       <div key={`camera_modal`}>{this.renderCameraModal.call(this)}</div>
     ];
   }
@@ -192,6 +191,7 @@ class App extends Component {
 export default App;
 
 /*
+      <BarcodeScanner openCamera={this.openCamera.bind(this)} key={`barcode_scanner`}/>,
   <Receipe {...this.state} receipe={receipe} ingredients={ingredients} steps={steps}/>
 
 function randomMan(max = 100, min = 0) {
