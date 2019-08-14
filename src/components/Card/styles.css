@@ -37,6 +37,11 @@
     right: 15px;
   }
   
+  .card--column .card-icon--secondary {
+    top: 15px;
+    right: 55px;
+  }
+  
   .card--column .card-img {
     display: block;
     height: 225px;

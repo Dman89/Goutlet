@@ -66,10 +66,26 @@ class Card extends React.Component {
     return <i className={answer + 'fa-2x'}></i>;
   }
 
+  renderCartIcon() {
+    let answer = 'fas text-primary';
+    if (this.state.carted) {
+        answer += ' fa-shopping-cart ';
+    } else {
+        answer += ' fa-cart-plus ';
+    }
+    return <i className={answer + 'fa-2x'}></i>;
+  }
+
+  // TODO Generalize Icon Rendering to take an array.
   renderPreBody() {
     const id = this.state.id;
     if (this.state.isCardColumn) {
         return [
+            (
+                <div className="card-icon card-icon--secondary" key={`${id}_cart`} onClick={() => this.props.toggleCarted(id)}>
+                    {this.renderCartIcon.call(this)}
+                </div>
+            ),
             (
                 <div className="card-icon text-danger" key={`${id}_favaorite`} onClick={() => this.props.toggleSelected(id)}>
                     {this.renderSelectedIcon.call(this)}

@@ -8,6 +8,8 @@ import Pantry from './components/Pantry';
 import BarcodeScanner from './components/BarcodeScanner';
 import Camera from './components/Camera';
 import { getAllReceipes } from "./services/receipes2";
+import { getAllBlissLists } from "./services/blissList2";
+import { createBlissTreat } from "./services/blissTreat";
 
 class App extends Component {
   componentWillMount() {
@@ -39,8 +41,13 @@ class App extends Component {
         modes: ['Label', 'Quantity', 'Measurement']
       },
       showMore: {},
-      selected: {}
+      selected: {},
+      carted: {}
     });
+
+    createBlissTreat().then((response) => response.json()).then((responseJSON) => {
+      console.log(responseJSON.result);
+    }).catch((e) => { console.log(e) });
 
     getAllReceipes().then((response) => response.json()).then((responseJSON) => {
        var { masters, masterKeys, percentages } = responseJSON.result;
@@ -98,6 +105,12 @@ class App extends Component {
     this.setState({ ...this.state, selected });
   }
 
+  toggleCarted(id) {
+    const { carted } = this.state;
+    carted[id] = carted[id] ? '' : id;
+    this.setState({ ...this.state, carted });
+  }
+
   renderIcons() {
     var icons = [
       { title: 'Pantry', icon: 'pantry.svg', urlValue: 0, url: 'pantry' },
@@ -153,7 +166,7 @@ class App extends Component {
     } else if (page === 1) {
       return <div>1</div>;
     } else if (page === 2) {
-      return <Explore {...this.state} toggleSelected={this.toggleSelected.bind(this)}/>;
+      return <Explore {...this.state} toggleSelected={this.toggleSelected.bind(this)} toggleCarted={this.toggleCarted.bind(this)}/>;
     } else if (page === 3) {
       return <Planner selected={this.state.selected}/>;
     }

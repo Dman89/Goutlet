@@ -9,7 +9,7 @@ class Planner extends React.Component {
     });
     var receipeKeys = Object.keys(this.props.selected) || [];
     var receipes = receipeKeys.map((key) => this.props.selected[key]).join(',');
-    console.log(receipes);
+    
     getGroceryList({ receipes }).then((response) => response.json()).then((responseJSON) => {
       const results = Object.keys(responseJSON.result).map(function(key) {
         return responseJSON.result[key];
