@@ -45,10 +45,6 @@ class App extends Component {
       carted: {}
     });
 
-    createBlissTreat().then((response) => response.json()).then((responseJSON) => {
-      console.log(responseJSON.result);
-    }).catch((e) => { console.log(e) });
-
     getAllReceipes().then((response) => response.json()).then((responseJSON) => {
        var { masters, masterKeys, percentages } = responseJSON.result;
        this.setState({
@@ -109,6 +105,15 @@ class App extends Component {
     const { carted } = this.state;
     carted[id] = carted[id] ? '' : id;
     this.setState({ ...this.state, carted });
+    if (carted[id]) {
+      createBlissTreat({ id }).then((response) => response.json()).then((responseJSON) => {
+        console.log(responseJSON.result);
+      }).catch((e) => {
+        console.error(e);
+        carted[id] = carted[id] ? '' : id;
+        this.setState({ ...this.state, carted });
+      });
+    }
   }
 
   renderIcons() {
