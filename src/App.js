@@ -10,7 +10,7 @@ import BarcodeScanner from './components/BarcodeScanner';
 import Camera from './components/Camera';
 import { getAllReceipes } from "./services/receipes2";
 import { getAllBlissLists } from "./services/blissList2";
-import { createBlissTreat } from "./services/blissTreat";
+import { createBlissTreat, addBlissTreat } from "./services/blissTreat";
 
 class App extends Component {
   componentWillMount() {
@@ -47,7 +47,8 @@ class App extends Component {
       showModal: false,
       contentLabel: 'Cart',
       carts: [],
-      selectedCart: ''
+      selectedCart: '',
+      modalSelected: ''
     });
 
     getAllReceipes().then((response) => response.json()).then((responseJSON) => {
@@ -64,7 +65,7 @@ class App extends Component {
       if (result.valid) {
         const selectedCartArray = result.payload.filter((cart) => (cart.u_default === "1"));
         const selectedCart = selectedCartArray.length ? selectedCartArray[0] : { sys_id: '' };
-        this.setState({ ...this.state, carts: result.payload, showModal: true, selectedCart: selectedCart.sys_id });
+        this.setState({ ...this.state, carts: result.payload, selectedCart: selectedCart.sys_id });
       }
     });
   }
@@ -77,8 +78,32 @@ class App extends Component {
     this.setState({ showModal: true });
   }
   
-  handleCloseModal () {
-    this.setState({ showModal: false });
+  handleCloseModal (state, props, calledFromHandler) {
+    const newState = { ...this.state, showModal: false };
+    const { selectedCart, modalSelected, carted } = this.state;
+    const { quantity } = state;
+    if (calledFromHandler) {
+      newState.selectedCart = selectedCart;
+
+      createBlissTreat({
+        id: modalSelected,
+        sys_id: modalSelected,
+        fields: [
+          { label: 'u_quantity', value: quantity },
+          { label: 'u_record', value: modalSelected },
+          { label: 'u_table', value: props.type },
+          { label: 'parent', value: selectedCart }
+        ]
+      }).then(res => res.json()).then(response => {
+        const { result } = response;
+        console.log(result);
+      }).catch((e) => {
+        console.error(e);
+        carted[selectedCart] = carted[selectedCart] ? '' : selectedCart;
+        this.setState({ ...this.state, carted });
+      });
+    }
+    this.setState(newState);
   }
 
   changeMode(i) {
@@ -132,13 +157,8 @@ class App extends Component {
     carted[id] = carted[id] ? '' : id;
     this.setState({ ...this.state, carted });
     if (carted[id]) {
-      createBlissTreat({ id }).then((response) => response.json()).then((responseJSON) => {
-        console.log(responseJSON.result);
-      }).catch((e) => {
-        console.error(e);
-        carted[id] = carted[id] ? '' : id;
-        this.setState({ ...this.state, carted });
-      });
+      this.setState({ ...this.state, modalSelected: id });
+      this.handleOpenModal.call(this);
     }
   }
 
@@ -235,6 +255,8 @@ class App extends Component {
         carts={this.state.carts}
         selectedCart={this.state.selectedCart}
         selectCartHandler={this.selectCartHandler.bind(this)}
+        type={`u_bliss_treat`}
+        modalSelected={this.state.modalSelected}
       />
     ];
   }

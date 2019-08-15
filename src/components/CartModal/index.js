@@ -93,7 +93,7 @@ class CartModal extends Component {
                         +
                     </div>
                 </div>
-                <button onClick={() => { this.props.handleCloseModal( ...this.state, ...this.props ); }} className={`cart-submit btn-primary`}>Add to Cart</button>
+                <button onClick={() => { this.props.handleCloseModal( this.state, this.props, true ); }} className={`cart-submit btn-primary`}>Add to Cart</button>
             </ReactModal>
         );
     }
