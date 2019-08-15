@@ -6,7 +6,10 @@ function getAllBlissLists() {
   var body = JSON.stringify({
     orderBy: 'sys_created_on',
     fields: [
-      { label: 'short_description' }, { label: 'u_wishlist' }, { label: 'u_default' }, { label: 'sys_id' }, 
+      { label: 'short_description' },
+      { label: 'u_wishlist' },
+      { label: 'u_default' },
+      { label: 'sys_id' }
     ]
   });
 

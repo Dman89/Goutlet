@@ -26,7 +26,8 @@ class CartModal extends Component {
     propsLogic(props) {
         this.setState({
             quantity: props.quantity || 1,
-            carts: props.carts || []
+            carts: props.carts || [],
+            selectedCart: props.selectedCart
         });
     }
 
@@ -47,11 +48,10 @@ class CartModal extends Component {
 
     renderCartOptions() {
         return this.state.carts.map((cart, index) => {
-            console.log(cart)
             const { short_description, sys_id, u_wishlist, u_default } = cart;
             if (u_wishlist === "0") {
                 return (
-                    <option key={`${sys_id}_${index}`} value={sys_id} selected={u_default === true}>{short_description}</option>
+                    <option key={`${sys_id}_${index}`} value={sys_id}>{short_description}</option>
                 );
             }
         });
@@ -60,17 +60,19 @@ class CartModal extends Component {
     render() {
         return (
             <ReactModal 
-            isOpen={this.props.showModal}
-            contentLabel={this.props.modalTitle}
-            onRequestClose={this.props.onRequestClose}
-            shouldCloseOnOverlayClick={this.props.shouldCloseOnOverlayClick}
-            style={customStyles}
+                isOpen={this.props.showModal}
+                contentLabel={this.props.modalTitle}
+                onRequestClose={this.props.onRequestClose}
+                shouldCloseOnOverlayClick={this.props.shouldCloseOnOverlayClick}
+                style={customStyles}
             >
                 <h3>
                     Cart
                 </h3>
                 <div className={`cart-select`}>
-                    <select>
+                    <select value={this.state.selectedCart} onChange={(e) => {
+                        this.props.selectCartHandler(e.target.value)
+                    }}>
                         {this.renderCartOptions.call(this)}
                         <optgroup label="- - - - - - - -">
                             <option value="__wish_list__">Add to Wishlist</option>

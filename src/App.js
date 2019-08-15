@@ -46,7 +46,8 @@ class App extends Component {
       carted: {},
       showModal: false,
       contentLabel: 'Cart',
-      carts: []
+      carts: [],
+      selectedCart: ''
     });
 
     getAllReceipes().then((response) => response.json()).then((responseJSON) => {
@@ -61,9 +62,15 @@ class App extends Component {
     getAllBlissLists().then(response => response.json()).then(json => {
       const { result } = json;
       if (result.valid) {
-        this.setState({ ...this.state, carts: result.payload, showModal: true });
+        const selectedCartArray = result.payload.filter((cart) => (cart.u_default === "1"));
+        const selectedCart = selectedCartArray.length ? selectedCartArray[0] : { sys_id: '' };
+        this.setState({ ...this.state, carts: result.payload, showModal: true, selectedCart: selectedCart.sys_id });
       }
     });
+  }
+
+  selectCartHandler(cartSysID) {
+      this.setState({ selectedCart: cartSysID })
   }
   
   handleOpenModal () {
@@ -226,6 +233,8 @@ class App extends Component {
         onRequestClose={this.handleCloseModal.bind(this)}
         handleCloseModal={this.handleCloseModal.bind(this)}
         carts={this.state.carts}
+        selectedCart={this.state.selectedCart}
+        selectCartHandler={this.selectCartHandler.bind(this)}
       />
     ];
   }
