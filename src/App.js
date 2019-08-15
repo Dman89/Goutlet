@@ -200,8 +200,7 @@ class App extends Component {
             {this.renderIcons.call(this)}
           </div>
         </div>
-      </div>,
-      <div key={`camera_modal`}>{this.renderCameraModal.call(this)}</div>
+      </div>
     ];
   }
 }

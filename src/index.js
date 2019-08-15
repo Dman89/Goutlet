@@ -2,8 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { Route, BrowserRouter as Router } from 'react-router-dom'
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+import Modal from 'react-modal';
 //import * as serviceWorker from './serviceWorker';
+
+const elementName = 'root';
+const applicationElement = document.getElementById(elementName);
+
+Modal.setAppElement(`#${elementName}`);
 
 const routing = (
     <Router>
@@ -18,7 +24,7 @@ const routing = (
     </Router>
 )
 
-ReactDOM.render(routing, document.getElementById('root'));
+ReactDOM.render(routing, applicationElement);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
