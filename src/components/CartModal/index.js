@@ -16,8 +16,17 @@ const customStyles = {
   
 class CartModal extends Component {
     componentWillMount() {
+        this.propsLogic.call(this, this.props);
+    }
+
+    componentWillReceiveProps(newProps) {
+      this.propsLogic.call(this, newProps);
+    }
+
+    propsLogic(props) {
         this.setState({
-            quantity: 1
+            quantity: props.quantity || 1,
+            carts: props.carts || []
         });
     }
 
@@ -36,6 +45,18 @@ class CartModal extends Component {
         this.setState({ ...this.state, quantity });
     }
 
+    renderCartOptions() {
+        return this.state.carts.map((cart, index) => {
+            console.log(cart)
+            const { short_description, sys_id, u_wishlist, u_default } = cart;
+            if (u_wishlist === "0") {
+                return (
+                    <option key={`${sys_id}_${index}`} value={sys_id} selected={u_default === true}>{short_description}</option>
+                );
+            }
+        });
+    }
+
     render() {
         return (
             <ReactModal 
@@ -50,7 +71,7 @@ class CartModal extends Component {
                 </h3>
                 <div className={`cart-select`}>
                     <select>
-                        <option value="Default" selected={true}>Default</option>
+                        {this.renderCartOptions.call(this)}
                         <optgroup label="- - - - - - - -">
                             <option value="__wish_list__">Add to Wishlist</option>
                         </optgroup>

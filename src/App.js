@@ -44,8 +44,9 @@ class App extends Component {
       showMore: {},
       selected: {},
       carted: {},
-      showModal: true,
-      contentLabel: 'Cart'
+      showModal: false,
+      contentLabel: 'Cart',
+      carts: []
     });
 
     getAllReceipes().then((response) => response.json()).then((responseJSON) => {
@@ -55,6 +56,13 @@ class App extends Component {
          masterKeys,
          percentages
        });
+    });
+
+    getAllBlissLists().then(response => response.json()).then(json => {
+      const { result } = json;
+      if (result.valid) {
+        this.setState({ ...this.state, carts: result.payload, showModal: true });
+      }
     });
   }
   
@@ -212,7 +220,13 @@ class App extends Component {
           </div>
         </div>
       </div>,
-      <CartModal key={`cart_modal`} showModal={this.state.showModal} contentLabel={this.state.contentLabel} onRequestClose={this.handleCloseModal.bind(this)} handleCloseModal={this.handleCloseModal.bind(this)} />
+      <CartModal key={`cart_modal`}
+        showModal={this.state.showModal}
+        contentLabel={this.state.contentLabel}
+        onRequestClose={this.handleCloseModal.bind(this)}
+        handleCloseModal={this.handleCloseModal.bind(this)}
+        carts={this.state.carts}
+      />
     ];
   }
 }

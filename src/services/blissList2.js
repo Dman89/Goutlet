@@ -4,7 +4,10 @@ const username = 'RESTUser';
 function getAllBlissLists() {
 
   var body = JSON.stringify({
-    orderBy: 'sys_created_on'
+    orderBy: 'sys_created_on',
+    fields: [
+      { label: 'short_description' }, { label: 'u_wishlist' }, { label: 'u_default' }, { label: 'sys_id' }, 
+    ]
   });
 
   return fetch(`https://ven02153.service-now.com/api/nuvo/fuel_planner/bliss/list/fetch`, {
