@@ -5,6 +5,7 @@ import Input from './components/Input';
 import Explore from './components/Views/Explore';
 import Planner from './components/Planner';
 import Pantry from './components/Pantry';
+import CartModal from './components/CartModal/index';
 import BarcodeScanner from './components/BarcodeScanner';
 import Camera from './components/Camera';
 import { getAllReceipes } from "./services/receipes2";
@@ -42,7 +43,9 @@ class App extends Component {
       },
       showMore: {},
       selected: {},
-      carted: {}
+      carted: {},
+      showModal: true,
+      contentLabel: 'Cart'
     });
 
     getAllReceipes().then((response) => response.json()).then((responseJSON) => {
@@ -53,6 +56,14 @@ class App extends Component {
          percentages
        });
     });
+  }
+  
+  handleOpenModal () {
+    this.setState({ showModal: true });
+  }
+  
+  handleCloseModal () {
+    this.setState({ showModal: false });
   }
 
   changeMode(i) {
@@ -200,7 +211,8 @@ class App extends Component {
             {this.renderIcons.call(this)}
           </div>
         </div>
-      </div>
+      </div>,
+      <CartModal key={`cart_modal`} showModal={this.state.showModal} contentLabel={this.state.contentLabel} onRequestClose={this.handleCloseModal.bind(this)} handleCloseModal={this.handleCloseModal.bind(this)} />
     ];
   }
 }
