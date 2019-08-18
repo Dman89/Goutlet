@@ -25,9 +25,10 @@ class CartModal extends Component {
 
     propsLogic(props) {
         this.setState({
+            ...this.state,
+            ...props,
             quantity: props.quantity || 1,
-            carts: props.carts || [],
-            selectedCart: props.selectedCart
+            carts: props.carts || []
         });
     }
 

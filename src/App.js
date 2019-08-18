@@ -6,6 +6,7 @@ import Explore from './components/Views/Explore';
 import Planner from './components/Planner';
 import Pantry from './components/Pantry';
 import CartModal from './components/CartModal/index';
+import Toaster from './components/Toaster/index';
 import BarcodeScanner from './components/BarcodeScanner';
 import Camera from './components/Camera';
 import { getAllReceipes } from "./services/receipes2";
@@ -48,7 +49,13 @@ class App extends Component {
       contentLabel: 'Cart',
       carts: [],
       selectedCart: '',
-      modalSelected: ''
+      modalSelected: '',
+      toaster: {
+        title: 'Add to Cart',
+        titleSmall: 'Succesful',
+        message: 'Item was added to cart',
+        open: true
+      }
     });
 
     getAllReceipes().then((response) => response.json()).then((responseJSON) => {
@@ -68,6 +75,10 @@ class App extends Component {
         this.setState({ ...this.state, carts: result.payload, selectedCart: selectedCart.sys_id });
       }
     });
+  }
+
+  closeToaster(index) {
+    this.setState({ ...this.state, toaster: { open: false } });
   }
 
   selectCartHandler(cartSysID) {
@@ -247,6 +258,7 @@ class App extends Component {
           </div>
         </div>
       </div>,
+      <Toaster key="toaster" { ...this.state.toaster } closeToaster={this.closeToaster.bind(this)} />,
       <CartModal key={`cart_modal`}
         showModal={this.state.showModal}
         contentLabel={this.state.contentLabel}

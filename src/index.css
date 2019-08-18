@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+.toast {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+}
