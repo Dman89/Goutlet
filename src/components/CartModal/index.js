@@ -40,8 +40,8 @@ class CartModal extends Component {
     minus(num) {
         let { quantity } = this.state;
         quantity -= num;
-        if (quantity > 0) {
-            quantity = 0;
+        if (quantity <= 1) {
+            quantity = 1;
         }
         this.setState({ ...this.state, quantity });
     }

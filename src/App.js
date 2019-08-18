@@ -152,9 +152,9 @@ class App extends Component {
     this.setState({ ...this.state, selected });
   }
 
-  toggleCarted(id) {
+  addToCart(id) {
     const { carted } = this.state;
-    carted[id] = carted[id] ? '' : id;
+    carted[id] = id;
     this.setState({ ...this.state, carted });
     if (carted[id]) {
       this.setState({ ...this.state, modalSelected: id });
@@ -217,7 +217,7 @@ class App extends Component {
     } else if (page === 1) {
       return <div>1</div>;
     } else if (page === 2) {
-      return <Explore {...this.state} toggleSelected={this.toggleSelected.bind(this)} toggleCarted={this.toggleCarted.bind(this)}/>;
+      return <Explore {...this.state} toggleSelected={this.toggleSelected.bind(this)} addToCart={this.addToCart.bind(this)}/>;
     } else if (page === 3) {
       return <Planner selected={this.state.selected}/>;
     }

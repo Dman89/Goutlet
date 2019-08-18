@@ -68,11 +68,7 @@ class Card extends React.Component {
 
   renderCartIcon() {
     let answer = 'fas text-primary';
-    if (this.state.carted) {
-        answer += ' fa-shopping-cart ';
-    } else {
-        answer += ' fa-cart-plus ';
-    }
+    answer += ' fa-cart-plus ';
     return <i className={answer + 'fa-2x'}></i>;
   }
 
@@ -82,7 +78,7 @@ class Card extends React.Component {
     if (this.state.isCardColumn) {
         return [
             (
-                <div className="card-icon card-icon--secondary" key={`${id}_cart`} onClick={() => this.props.toggleCarted(id)}>
+                <div className="card-icon card-icon--secondary" key={`${id}_cart`} onClick={() => this.props.addToCart(id)}>
                     {this.renderCartIcon.call(this)}
                 </div>
             ),

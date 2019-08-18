@@ -54,7 +54,7 @@ class Explore extends React.Component {
 
       return (
         <div className="col-xs-12 col-md-6 col-lg-4 col-xl-4" key={`${index}_${sys_id}`}>
-          <Card id={sys_id} title={name.displayValue} type={"column"} prepTime={prepTime.displayValue} cookTime={cookTime.displayValue} percentage={percent} selected={this.props.selected[sys_id]} toggleSelected={this.props.toggleSelected}  toggleCarted={this.props.toggleCarted}  carted={this.props.carted[sys_id]}/>
+          <Card id={sys_id} title={name.displayValue} type={"column"} prepTime={prepTime.displayValue} cookTime={cookTime.displayValue} percentage={percent} selected={this.props.selected[sys_id]} toggleSelected={this.props.toggleSelected}  addToCart={this.props.addToCart}  carted={this.props.carted[sys_id]}/>
         </div>
       );
     }, this);
