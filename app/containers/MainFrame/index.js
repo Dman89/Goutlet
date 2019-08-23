@@ -5,32 +5,18 @@
  */
 
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import pantryIconSRC from 'svg-url-loader?name=[name].[ext]!../../images/pantry.svg';
-import cookbookIconSRC from 'svg-url-loader?name=[name].[ext]!../../images/cookbook.svg';
-import searchIconSRC from 'svg-url-loader?name=[name].[ext]!../../images/search.svg';
-import plannerSRC from 'svg-url-loader?name=[name].[ext]!../../images/planner.svg';
 import makeSelectMainFrame from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 const defaultPageToLoad = 3;
 const key = 'mainFrame';
-const icons = [
-  { title: 'Pantry', icon: pantryIconSRC, urlValue: 0, url: 'pantry' },
-  { title: 'Cookbook', icon: cookbookIconSRC, urlValue: 1, url: 'cookbook' },
-  { title: 'Explore', icon: searchIconSRC, urlValue: 2, url: 'explore' },
-  { title: 'Planner', icon: plannerSRC, urlValue: 3, url: 'planner' },
-];
 
 export function MainFrame() {
   useInjectReducer({ key, reducer });
@@ -48,27 +34,6 @@ export function MainFrame() {
     // } else if (page === 3) {
     //   return <Planner selected={this.state.selected}/>;
     // }
-  }
-
-  function renderIcons() {
-    return icons.map(function mapFn(icon, index) {
-      return (
-        <NavLink
-          exact
-          activeClassName="active"
-          to={icon.url}
-          className="Bottom-Panel-Icons pointer"
-          key={index}
-        >
-          <div className="Bottom-Panel-Icon">
-            <img id={icon.title} alt={icon.title} src={icon.icon} />
-          </div>
-          <div className="Bottom-Panel-Label">
-            <label>{icon.title}</label>
-          </div>
-        </NavLink>
-      );
-    });
   }
 
   function renderCurrentPageHeader(state = { page: defaultPageToLoad }) {
@@ -95,18 +60,9 @@ export function MainFrame() {
     <div className="application-container" key="application_container">
       {renderCurrentPageHeader.call(this)}
       <div className="application-frame">{renderCurrentPage.call(this)}</div>
-      <div className="Bottom-Panel">
-        <div className="Bottom-Panel-Icon-Container">
-          {renderIcons.call(this)}
-        </div>
-      </div>
     </div>
   );
 }
-
-MainFrame.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = createStructuredSelector({
   mainFrame: makeSelectMainFrame(),
