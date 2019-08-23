@@ -1,0 +1,13 @@
+.toast {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    
+  }
+  
+  .toast .toast-header {
+    margin-bottom: 5px;
+  }
