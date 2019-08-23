@@ -9,12 +9,14 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import NotificationFrame from './../NotificationFrame';
+import MainFrame from './../MainFrame';
 
 import messages from './messages';
 
 export default function HomePage() {
   
   return (
-    <NotificationFrame key="notificationFrame" />
+    <NotificationFrame key="notificationFrame" />,
+    <MainFrame key="mainFrame" />
   );
 }
