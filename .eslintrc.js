@@ -35,10 +35,10 @@ module.exports = {
     'import/no-webpack-loader-syntax': 0,
     'import/prefer-default-export': 0,
     indent: [
-      2,
-      2,
+      "error",
+      "tab",
       {
-        SwitchCase: 1,
+        SwitchCase: "tab",
       },
     ],
     'jsx-a11y/aria-props': 2,
