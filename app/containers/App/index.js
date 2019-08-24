@@ -14,19 +14,25 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import NotificationFrame from 'containers/NotificationFrame/Loadable';
 import NavBar from 'containers/NavBar/index';
+import MainContainer from './MainContainer';
+import MainContainerMainFrame from './MainContainerMainFrame';
 
 import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
     <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/explore" render={() => <div>hey</div>} />
-        <Route component={NotFoundPage} />
-      </Switch>
+      <MainContainer>
+        <MainContainerMainFrame>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/explore" render={() => <div>hey</div>} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </MainContainerMainFrame>
+        <NavBar />
+      </MainContainer>
       <NotificationFrame />
-      <NavBar />
       <GlobalStyle />
     </div>
   );
