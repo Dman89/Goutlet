@@ -9,42 +9,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
-
-import messages from './messages';
-
-import {
-  cookbookIconSRC,
-  searchIconSRC,
-  plannerSRC,
-  pantryIconSRC,
-} from './images';
-
-const icons = [
-  {
-    title: messages.pantry.defaultMessage,
-    icon: pantryIconSRC,
-    urlValue: 0,
-    url: 'pantry',
-  },
-  {
-    title: messages.cookbook.defaultMessage,
-    icon: cookbookIconSRC,
-    urlValue: 1,
-    url: 'cookbook',
-  },
-  {
-    title: messages.explore.defaultMessage,
-    icon: searchIconSRC,
-    urlValue: 2,
-    url: 'explore',
-  },
-  {
-    title: messages.planner.defaultMessage,
-    icon: plannerSRC,
-    urlValue: 3,
-    url: 'planner',
-  },
-];
+import { icons } from './icons';
 
 export function NavBar() {
   function renderIcons() {
